@@ -11,6 +11,8 @@ Projeto de estudo desenvolvido em **Astro** para apresentar uma ótica por meio 
 ![Git](https://img.shields.io/badge/Git-versionamento-F05032?style=flat-square&logo=git&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-deploy-000000?style=flat-square&logo=vercel&logoColor=white)
 
+### [Acessar demonstração na Vercel →](https://site-otica-omega.vercel.app)
+
 </div>
 
 ![Página inicial da Óticas Londrix](docs/capa.png)
