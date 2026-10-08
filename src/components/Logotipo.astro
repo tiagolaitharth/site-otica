@@ -1,0 +1,63 @@
+<span class="logotipo">
+  <svg class="logotipo-marca" viewBox="0 0 44 28" fill="none" aria-hidden="true">
+    <circle cx="15" cy="14" r="11" stroke="currentColor" stroke-width="1.5"></circle>
+    <circle cx="29" cy="14" r="11" stroke="currentColor" stroke-width="1.5"></circle>
+    <path class="logotipo-encontro" d="M22 5.515A11 11 0 0 0 22 22.485A11 11 0 0 0 22 5.515Z"></path>
+  </svg>
+  <span class="logotipo-texto">
+    <span class="logotipo-prefixo">Óticas</span>
+    <span class="logotipo-nome">Londrix</span>
+  </span>
+</span>
+
+<style>
+  .logotipo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logotipo-marca {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: auto;
+  }
+
+  .logotipo-encontro {
+    fill: var(--cor-dourado);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .logotipo-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .logotipo-prefixo {
+    font-size: 0.5625rem;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .logotipo-nome {
+    font-family: var(--fonte-titulo);
+    font-size: 1.75rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 0.9;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .logotipo-encontro {
+      transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .logotipo:hover .logotipo-encontro {
+      transform: scale(1.35);
+    }
+  }
+</style>

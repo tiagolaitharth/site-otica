@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Cabecalho from '../components/Cabecalho.astro';
+import Hero from '../components/Hero.astro';
+import Estilos from '../components/Estilos.astro';
+import Catalogo from '../components/Catalogo.astro';
+import Marcas from '../components/Marcas.astro';
+import ColecaoInverno from '../components/ColecaoInverno.astro';
+import Visite from '../components/Visite.astro';
+import Rodape from '../components/Rodape.astro';
+import FormularioContato from '../components/FormularioContato.astro';
+---
+
+<Layout
+  titulo="Óticas Londrix"
+  descricao="Armações, óculos de sol e lentes de contato em Londrina."
+>
+  <Cabecalho />
+  <main>
+    <Hero />
+    <Estilos />
+    <Catalogo />
+    <Marcas />
+    <ColecaoInverno />
+    <Visite />
+  </main>
+  <Rodape />
+  <FormularioContato />
+</Layout>

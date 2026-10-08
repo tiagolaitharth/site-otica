@@ -1,0 +1,328 @@
+---
+const colunas = [-30, 70, 150, 230, 310, 390, 470, 550, 630];
+const linhas = [-20, 60, 130, 200, 270, 340, 410, 480, 550];
+const buscaMapa = 'Londrina+PR';
+---
+
+<section class="visite" id="visite" aria-labelledby="visite-titulo">
+  <div class="container visite-grade">
+    <div class="visite-texto">
+      <p class="visite-rotulo">Venha nos visitar</p>
+
+      <h2 class="visite-titulo" id="visite-titulo">
+        No centro de{' '}<em>Londrina.</em>
+      </h2>
+
+      <dl class="visite-lista">
+        <div class="visite-item">
+          <dt>Endereço</dt>
+          <dd>Rua das Armações, 480<br />Centro — Londrina/PR</dd>
+        </div>
+        <div class="visite-item">
+          <dt>Horário</dt>
+          <dd>Segunda a sexta, 9h às 19h<br />Sábado, 9h às 14h</dd>
+        </div>
+        <div class="visite-item">
+          <dt>Telefone</dt>
+          <dd><a href="tel:+554315550100">(43) 1555-0100</a></dd>
+        </div>
+      </dl>
+
+      <div class="visite-acoes">
+        <a
+          class="botao"
+          href={`https://www.google.com/maps/search/?api=1&query=${buscaMapa}`}
+          target="_blank"
+          rel="noopener"
+        >
+          Como chegar
+          <span class="botao-seta" aria-hidden="true">→</span>
+        </a>
+        <a class="botao botao-contorno" href="tel:+554315550100">Ligar agora</a>
+      </div>
+    </div>
+
+    <figure class="mapa">
+      <svg viewBox="0 0 600 480" role="img" aria-label="Mapa estilizado do centro de Londrina com a rota até a Óticas Londrix">
+        <g transform="rotate(-8 300 240)">
+          <g class="mapa-ruas">
+            {colunas.map((x) => <line x1={x} y1="-120" x2={x} y2="640" />)}
+            {linhas.map((y) => <line x1="-120" y1={y} x2="720" y2={y} />)}
+            <line x1="-60" y1="520" x2="520" y2="-60" />
+          </g>
+          <g class="mapa-avenidas">
+            <line x1="310" y1="-120" x2="310" y2="640" />
+            <line x1="-120" y1="200" x2="720" y2="200" />
+          </g>
+          <rect class="mapa-parque" x="156" y="346" width="68" height="58" rx="8" />
+          <rect class="mapa-parque" x="396" y="66" width="68" height="58" rx="8" />
+          <path class="mapa-rota" pathLength="1" d="M150 480L150 270L390 270L390 200" />
+        </g>
+        <circle class="mapa-pulso" cx="383.5" cy="187.9" r="9" />
+        <circle class="mapa-ponto" cx="383.5" cy="187.9" r="9" />
+        <circle class="mapa-miolo" cx="383.5" cy="187.9" r="3.5" />
+      </svg>
+      <figcaption class="mapa-etiqueta">Óticas Londrix</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .visite {
+    padding-block: 4rem;
+  }
+
+  .visite-grade {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .visite-rotulo {
+    margin-bottom: 1.25rem;
+    color: var(--cor-texto-suave);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .visite-titulo {
+    margin-bottom: 2.5rem;
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2.75rem, 9vw, 4.75rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    view-timeline: --titulo block;
+  }
+
+  .visite-titulo em {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .visite-titulo em::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.12em;
+    height: 0.04em;
+    background: var(--cor-dourado);
+    transform-origin: left;
+  }
+
+  .visite-lista {
+    margin: 0 0 2.5rem;
+    border-top: 1px solid var(--cor-linha);
+  }
+
+  .visite-item {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 1rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid var(--cor-linha);
+  }
+
+  .visite-item dt {
+    color: var(--cor-texto-suave);
+    font-family: var(--fonte-titulo);
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.3;
+  }
+
+  .visite-item dd {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+
+  .visite-item dd a {
+    text-decoration: underline;
+    text-decoration-color: var(--cor-dourado);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.3em;
+  }
+
+  .visite-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .mapa {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 5 / 4;
+    border-radius: 1.25rem;
+    background: var(--cor-marinho);
+    overflow: hidden;
+    view-timeline: --mapa block;
+  }
+
+  .mapa svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mapa-ruas {
+    fill: none;
+    stroke: var(--cor-creme);
+    stroke-opacity: 0.12;
+    stroke-width: 2;
+  }
+
+  .mapa-avenidas {
+    fill: none;
+    stroke: var(--cor-creme);
+    stroke-opacity: 0.24;
+    stroke-width: 6;
+  }
+
+  .mapa-parque {
+    fill: var(--cor-creme);
+    fill-opacity: 0.07;
+  }
+
+  .mapa-rota {
+    fill: none;
+    stroke: var(--cor-dourado);
+    stroke-dasharray: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 4;
+  }
+
+  .mapa-ponto {
+    fill: var(--cor-dourado);
+  }
+
+  .mapa-miolo {
+    fill: var(--cor-marinho);
+  }
+
+  .mapa-pulso {
+    fill: var(--cor-dourado);
+    fill-opacity: 0.35;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .mapa-etiqueta {
+    position: absolute;
+    left: 63.9%;
+    top: 39.1%;
+    padding: 0.5rem 0.875rem;
+    border-radius: 0.5rem;
+    background: var(--cor-creme);
+    color: var(--cor-marinho);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transform: translate(-50%, calc(-100% - 1.25rem));
+    white-space: nowrap;
+  }
+
+  .mapa-etiqueta::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -0.3125rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    background: var(--cor-creme);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  @media (min-width: 768px) {
+    .visite {
+      padding-block: 7rem;
+    }
+
+    .visite-item {
+      grid-template-columns: 8rem 1fr;
+    }
+
+    .visite-acoes {
+      flex-direction: row;
+    }
+
+    .visite-acoes .botao {
+      min-width: 13rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .visite-grade {
+      grid-template-columns: 1fr 1.1fr;
+      align-items: center;
+      gap: 5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mapa-pulso {
+      animation: pulsar 2.4s ease-out infinite;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .visite-titulo em::after {
+        animation: tracar linear both;
+        animation-timeline: --titulo;
+        animation-range: entry 40% entry 100%;
+      }
+
+      .mapa-rota {
+        animation: desenhar linear both;
+        animation-timeline: --mapa;
+        animation-range: entry 15% cover 45%;
+      }
+
+      .mapa-ponto,
+      .mapa-miolo,
+      .mapa-etiqueta {
+        animation: surgir linear both;
+        animation-timeline: --mapa;
+        animation-range: cover 30% cover 48%;
+      }
+    }
+  }
+
+  @keyframes pulsar {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(3);
+    }
+  }
+
+  @keyframes tracar {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes desenhar {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes surgir {
+    from {
+      opacity: 0;
+    }
+  }
+</style>

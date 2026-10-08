@@ -1,0 +1,169 @@
+<dialog class="contato" id="contato" aria-labelledby="contato-titulo">
+  <div class="contato-topo">
+    <h2 class="contato-titulo" id="contato-titulo">Entrar em contato</h2>
+    <button class="botao botao-contorno botao-pequeno" type="button" data-fechar-contato>
+      Fechar
+    </button>
+  </div>
+
+  <form class="contato-formulario">
+    <p class="contato-texto">
+      Conte o que você procura e retornamos em até um dia útil.
+    </p>
+
+    <label class="campo">
+      <span>Nome</span>
+      <input type="text" name="nome" autocomplete="name" required />
+    </label>
+
+    <label class="campo">
+      <span>Telefone</span>
+      <input
+        type="tel"
+        name="telefone"
+        autocomplete="tel"
+        placeholder="(00) 00000-0000"
+        required
+      />
+    </label>
+
+    <label class="campo">
+      <span>Mensagem</span>
+      <textarea name="mensagem" rows="4"></textarea>
+    </label>
+
+    <button class="botao" type="submit">Enviar mensagem</button>
+
+    <p class="contato-aviso">
+      Site de demonstração: este formulário não envia dados.
+    </p>
+  </form>
+
+  <div class="contato-confirmacao" hidden>
+    <p class="contato-confirmacao-titulo">Obrigado pelo contato.</p>
+    <p class="contato-texto">
+      Em um site real, nossa equipe responderia em até um dia útil. Nesta
+      demonstração, nenhum dado foi enviado.
+    </p>
+    <button class="botao" type="button" data-fechar-contato>Fechar</button>
+  </div>
+</dialog>
+
+<script>
+  const dialogo = document.querySelector<HTMLDialogElement>('#contato');
+  const formulario = dialogo?.querySelector('form');
+  const confirmacao = dialogo?.querySelector<HTMLElement>('.contato-confirmacao');
+
+  if (dialogo && formulario && confirmacao) {
+    document.querySelectorAll('[data-abrir-contato]').forEach((botao) => {
+      botao.addEventListener('click', () => dialogo.showModal());
+    });
+
+    dialogo.querySelectorAll('[data-fechar-contato]').forEach((botao) => {
+      botao.addEventListener('click', () => dialogo.close());
+    });
+
+    dialogo.addEventListener('click', (evento) => {
+      if (evento.target === dialogo) dialogo.close();
+    });
+
+    formulario.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+      formulario.hidden = true;
+      confirmacao.hidden = false;
+    });
+
+    dialogo.addEventListener('close', () => {
+      formulario.reset();
+      formulario.hidden = false;
+      confirmacao.hidden = true;
+    });
+  }
+</script>
+
+<style>
+  .contato {
+    width: min(100% - 2rem, 30rem);
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: 0;
+    border-radius: 1.25rem;
+    background: var(--cor-branco);
+    color: var(--cor-marinho);
+    overflow: auto;
+  }
+
+  .contato::backdrop {
+    background: rgb(11 31 58 / 0.55);
+  }
+
+  .contato-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--cor-linha);
+  }
+
+  .contato-titulo {
+    font-size: 1.25rem;
+  }
+
+  .contato-formulario,
+  .contato-confirmacao {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .contato-formulario[hidden],
+  .contato-confirmacao[hidden] {
+    display: none;
+  }
+
+  .contato-texto {
+    color: var(--cor-texto-suave);
+  }
+
+  .contato-confirmacao-titulo {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .campo input,
+  .campo textarea {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem;
+    border: 1px solid rgb(11 31 58 / 0.3);
+    border-radius: 0.75rem;
+    background: var(--cor-branco);
+    color: inherit;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .campo textarea {
+    resize: vertical;
+  }
+
+  .campo input::placeholder {
+    color: rgb(11 31 58 / 0.45);
+  }
+
+  .contato-aviso {
+    color: var(--cor-texto-suave);
+    font-size: 0.8125rem;
+  }
+</style>

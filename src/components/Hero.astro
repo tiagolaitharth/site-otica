@@ -1,0 +1,242 @@
+---
+const itens = [
+  'Armações',
+  'Lentes',
+  'Óculos de sol',
+  'Ajuste na hora',
+  'Londrina desde 1987',
+];
+const frase = `${itens.join(' · ')} · `.repeat(2);
+const copias = [0, 1];
+---
+
+<section class="hero">
+  <div class="container hero-conteudo">
+    <div class="cena" aria-hidden="true">
+      <div class="faixa faixa-desfocada">
+        <div class="trilho">
+          {copias.map(() => <span>{frase}</span>)}
+        </div>
+      </div>
+
+      <div class="faixa faixa-nitida">
+        <div class="trilho">
+          {copias.map(() => <span>{frase}</span>)}
+        </div>
+      </div>
+
+      <svg class="armacao" viewBox="0 0 1000 320" fill="none">
+        <circle cx="325" cy="160" r="125" stroke="currentColor" stroke-width="5"></circle>
+        <circle cx="675" cy="160" r="125" stroke="currentColor" stroke-width="5"></circle>
+        <path
+          class="armacao-ponte"
+          d="M 442 117 Q 500 85 558 117"
+          stroke-width="5"
+          stroke-linecap="round"
+        ></path>
+      </svg>
+    </div>
+
+    <h1 class="hero-titulo">
+      <span class="palavra" style="--i: 0">O</span>{' '}<span class="palavra" style="--i: 1">grau</span>{' '}<span class="palavra" style="--i: 2">certo,</span>{' '}<span class="palavra" style="--i: 3">na</span>{' '}
+      <em class="destaque"><span class="palavra" style="--i: 4">armação</span>{' '}<span class="palavra" style="--i: 5">certa.</span></em>
+    </h1>
+
+    <p class="hero-texto">
+      Desde 1987 no centro de Londrina. Montamos seus óculos em laboratório
+      próprio e ajustamos a armação no seu rosto antes de você sair da loja.
+    </p>
+
+    <div class="hero-acoes">
+      <button class="botao" type="button" data-abrir-contato>
+        Entrar em contato
+        <span class="botao-seta" aria-hidden="true">→</span>
+      </button>
+      <a class="botao botao-contorno" href="#colecao">Ver a coleção</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    overflow: hidden;
+    padding-block: 2.5rem 4rem;
+  }
+
+  .hero-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cena {
+    position: relative;
+    flex-shrink: 0;
+    width: 160%;
+    margin-inline: -30%;
+    aspect-ratio: 1000 / 320;
+    container-type: inline-size;
+  }
+
+  .faixa {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .trilho {
+    display: flex;
+    flex-shrink: 0;
+    width: max-content;
+    animation: correr 48s linear infinite;
+  }
+
+  .trilho span {
+    font-size: 3.4cqw;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: pre;
+  }
+
+  .faixa-desfocada {
+    opacity: 0.4;
+    filter: blur(0.8cqw);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+  }
+
+  .faixa-nitida {
+    --lente: ellipse 12.5% 39.0625%;
+    background: var(--cor-creme);
+    -webkit-mask-image:
+      radial-gradient(var(--lente) at 32.5% 50%, #000 99%, transparent 100%),
+      radial-gradient(var(--lente) at 67.5% 50%, #000 99%, transparent 100%);
+    mask-image:
+      radial-gradient(var(--lente) at 32.5% 50%, #000 99%, transparent 100%),
+      radial-gradient(var(--lente) at 67.5% 50%, #000 99%, transparent 100%);
+  }
+
+  .armacao {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .armacao-ponte {
+    stroke: var(--cor-dourado);
+  }
+
+  .hero-titulo {
+    margin-top: 2rem;
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2.5rem, 9vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .palavra {
+    display: inline-block;
+    animation: focar 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i) * 90ms + 150ms);
+  }
+
+  .destaque {
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin-inline: auto;
+    white-space: nowrap;
+  }
+
+  .destaque::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.12em;
+    height: 0.04em;
+    background: var(--cor-dourado);
+    transform-origin: left;
+    animation: tracar 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 1.1s both;
+  }
+
+  .hero-texto {
+    max-width: 34rem;
+    margin-top: 2rem;
+    color: var(--cor-texto-suave);
+    font-size: 1.0625rem;
+  }
+
+  .hero-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  @keyframes correr {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes focar {
+    from {
+      opacity: 0;
+      filter: blur(0.2em);
+      transform: translateY(0.12em);
+    }
+  }
+
+  @keyframes tracar {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      padding-block: 3.5rem 6rem;
+    }
+
+    .cena {
+      width: 100%;
+      margin-inline: 0;
+    }
+
+    .hero-titulo {
+      margin-top: 2.5rem;
+    }
+
+    .hero-texto {
+      font-size: 1.1875rem;
+    }
+
+    .hero-acoes {
+      flex-direction: row;
+      justify-content: center;
+      width: auto;
+      margin-top: 2.5rem;
+    }
+
+    .hero-acoes .botao {
+      min-width: 13rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trilho,
+    .palavra,
+    .destaque::after {
+      animation: none;
+    }
+  }
+</style>

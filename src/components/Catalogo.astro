@@ -1,0 +1,516 @@
+---
+import { categorias, formas, icones } from '../data/catalogo';
+
+const ultima = categorias.length - 1;
+const posicaoDe = (indice: number) =>
+  indice === 0 ? 'primeira' : indice === ultima ? 'ultima' : 'meio';
+---
+
+<section class="catalogo" id="catalogo" aria-labelledby="catalogo-titulo">
+  {
+    categorias.map((categoria, indice) => (
+      <span class="ancora" id={`categoria-${categoria.chave}`} style={`--i: ${indice}`} />
+    ))
+  }
+
+  <div class="container catalogo-palco">
+    <header class="catalogo-cabeca">
+      <p class="catalogo-rotulo">Coleção 2026</p>
+      <h2 class="catalogo-titulo" id="catalogo-titulo">Do grau ao sol, em um só lugar.</h2>
+    </header>
+
+    <nav class="abas" aria-label="Categorias do catálogo">
+      {
+        categorias.map((categoria, indice) => (
+          <a
+            class={`aba aba-${posicaoDe(indice)}`}
+            href={`#categoria-${categoria.chave}`}
+            style={`--i: ${indice}`}
+          >
+            <span class="aba-icone" aria-hidden="true" set:html={icones[categoria.chave]} />
+            <span class="aba-rotulo">{categoria.rotulo}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="categorias">
+      {
+        categorias.map((categoria, indice) => (
+          <div class={`categoria categoria-${posicaoDe(indice)}`} style={`--i: ${indice}`}>
+            <h3 class="categoria-titulo">{categoria.rotulo}</h3>
+            <ul class="produtos">
+              {categoria.produtos.map((produto) => (
+                <li class="produto">
+                  <div class="produto-figura" aria-hidden="true" set:html={formas[produto.forma]} />
+                  <p class="produto-detalhe">{produto.detalhe}</p>
+                  <h4 class="produto-nome">{produto.nome}</h4>
+                  <p class="produto-preco">{produto.preco}</p>
+                  <div class="produto-botoes">
+                    <button class="botao" type="button" data-abrir-contato>
+                      {categoria.acoes[0]}
+                    </button>
+                    <button
+                      class="botao botao-contorno produto-secundario"
+                      type="button"
+                      data-abrir-contato
+                    >
+                      {categoria.acoes[1]}
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  @property --ativo {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+  }
+
+  .catalogo {
+    position: relative;
+    padding-block: 5rem 4rem;
+  }
+
+  .ancora,
+  .abas {
+    display: none;
+  }
+
+  .catalogo-cabeca {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .catalogo-rotulo {
+    margin-bottom: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .catalogo-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  .categorias {
+    display: grid;
+    gap: 4rem;
+  }
+
+  .categoria-titulo {
+    margin-bottom: 1.5rem;
+    font-family: var(--fonte-titulo);
+    font-size: 1.75rem;
+    font-weight: 400;
+  }
+
+  .produtos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .produto {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    border: 1px solid var(--cor-linha);
+    border-radius: 2px;
+    background: var(--cor-branco);
+  }
+
+  .produto-figura {
+    position: relative;
+    aspect-ratio: 2 / 1;
+    margin-bottom: 0.5rem;
+    background: var(--cor-creme);
+  }
+
+  .produto-figura :global(svg) {
+    position: absolute;
+    inset: 0;
+    width: 62%;
+    height: 78%;
+    margin: auto;
+  }
+
+  .produto-detalhe {
+    color: var(--cor-texto-suave);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .produto-nome {
+    font-family: var(--fonte-titulo);
+    font-size: 1.375rem;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .produto-preco {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .produto-botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+  }
+
+  .produto-botoes .botao {
+    flex: 1;
+    min-height: 2.75rem;
+    padding-inline: 0.5rem;
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .produto-botoes {
+      flex-direction: row;
+    }
+
+    .produtos {
+      gap: 1rem;
+    }
+
+    .produto {
+      padding: 1rem;
+    }
+
+    .produto-figura {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .produtos {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-height: 40rem) {
+      .catalogo {
+        height: 400svh;
+        padding-block: 0;
+        view-timeline: --catalogo block;
+        view-timeline-inset: 0px;
+      }
+
+      .ancora {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: calc(var(--i) * 75svh + 5rem + 9svh);
+        width: 1px;
+        height: 1px;
+      }
+
+      .catalogo-palco {
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        height: 100svh;
+        padding-top: 5rem;
+        padding-bottom: 1.5rem;
+        overflow: hidden;
+      }
+
+      .catalogo-cabeca {
+        margin-bottom: 1rem;
+      }
+
+      .catalogo-rotulo {
+        display: none;
+      }
+
+      .catalogo-titulo {
+        font-size: clamp(1.75rem, 5vw, 2.75rem);
+      }
+
+      .abas {
+        display: flex;
+        justify-content: center;
+        gap: 0.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .aba {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.375rem;
+        min-width: 4.5rem;
+        min-height: 2.75rem;
+        padding: 0.5rem 0.5rem 0.75rem;
+        color: inherit;
+        text-align: center;
+        text-decoration: none;
+        opacity: calc(0.4 + 0.6 * var(--ativo));
+        transition: opacity 0.2s ease;
+      }
+
+      .aba:hover {
+        opacity: 1;
+      }
+
+      .aba::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 2.5rem;
+        height: 2px;
+        background: var(--cor-dourado);
+        transform: translateX(-50%) scaleX(var(--ativo));
+      }
+
+      .aba-icone :global(svg) {
+        display: block;
+        width: 2rem;
+        height: 2rem;
+      }
+
+      .aba-rotulo {
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1.2;
+      }
+
+      .categorias {
+        position: relative;
+        flex: 1;
+        min-height: 0;
+        display: block;
+      }
+
+      .categoria {
+        position: absolute;
+        inset: 0;
+      }
+
+      .categoria-titulo {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      .produto-detalhe {
+        font-size: 0.625rem;
+      }
+
+      .produto-nome {
+        font-size: 1.125rem;
+      }
+
+      .produto-figura {
+        aspect-ratio: 2 / 1;
+        margin-bottom: 0.25rem;
+      }
+
+      .produto-botoes {
+        display: none;
+        padding-top: 0.5rem;
+      }
+
+      .produto-secundario {
+        display: none;
+      }
+
+      @media (min-height: 50rem) {
+        .produto-botoes {
+          display: flex;
+        }
+      }
+
+      .categoria,
+      .aba {
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: --catalogo;
+      }
+
+      .categoria-meio {
+        animation-name: exibir-meio;
+        animation-range: cover calc(18.5% + var(--i) * 15%) cover calc(36.5% + var(--i) * 15%);
+      }
+
+      .categoria-primeira {
+        animation-name: exibir-primeira;
+        animation-range: cover 0% cover 36.5%;
+      }
+
+      .categoria-ultima {
+        animation-name: exibir-ultima;
+        animation-range: cover 63.5% cover 100%;
+      }
+
+      .aba-meio {
+        animation-name: ativar-meio;
+        animation-range: cover calc(18.5% + var(--i) * 15%) cover calc(36.5% + var(--i) * 15%);
+      }
+
+      .aba-primeira {
+        animation-name: ativar-primeira;
+        animation-range: cover 0% cover 36.5%;
+      }
+
+      .aba-ultima {
+        animation-name: ativar-ultima;
+        animation-range: cover 63.5% cover 100%;
+      }
+
+      @media (min-width: 768px) {
+        .catalogo-palco {
+          padding-top: 6.25rem;
+          padding-bottom: 2rem;
+        }
+
+        .catalogo-cabeca {
+          margin-bottom: 1.5rem;
+        }
+
+        .catalogo-rotulo {
+          display: block;
+        }
+
+        .abas {
+          gap: 2.5rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .aba-icone :global(svg) {
+          width: 2.75rem;
+          height: 2.75rem;
+        }
+
+        .aba-rotulo {
+          font-size: 0.875rem;
+        }
+
+        .produto-detalhe {
+          font-size: 0.6875rem;
+        }
+
+        .produto-nome {
+          font-size: 1.375rem;
+        }
+
+        .produto-figura {
+          aspect-ratio: 16 / 10;
+          margin-bottom: 0.5rem;
+        }
+
+        .produto-botoes {
+          display: flex;
+          padding-top: 0.75rem;
+        }
+
+        .produto-secundario {
+          display: inline-flex;
+        }
+      }
+    }
+  }
+
+  @keyframes exibir-primeira {
+    0%,
+    91.8% {
+      opacity: 1;
+      visibility: visible;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @keyframes exibir-meio {
+    0%,
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+    16.7%,
+    83.3% {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @keyframes exibir-ultima {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+    }
+    8.2%,
+    100% {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @keyframes ativar-primeira {
+    0%,
+    91.8% {
+      --ativo: 1;
+    }
+    100% {
+      --ativo: 0;
+    }
+  }
+
+  @keyframes ativar-meio {
+    0%,
+    100% {
+      --ativo: 0;
+    }
+    16.7%,
+    83.3% {
+      --ativo: 1;
+    }
+  }
+
+  @keyframes ativar-ultima {
+    0% {
+      --ativo: 0;
+    }
+    8.2%,
+    100% {
+      --ativo: 1;
+    }
+  }
+</style>

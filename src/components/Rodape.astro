@@ -1,0 +1,203 @@
+---
+import Logotipo from './Logotipo.astro';
+
+const loja = [
+  { rotulo: 'Óculos de grau', destino: '#categoria-grau' },
+  { rotulo: 'Óculos de sol', destino: '#categoria-sol' },
+  { rotulo: 'Lentes de contato', destino: '#categoria-lentes' },
+  { rotulo: 'Acessórios', destino: '#categoria-acessorios' },
+  { rotulo: 'Coleção Inverno 2027', destino: '#inverno' },
+];
+
+const servicos = [
+  'Exame de vista',
+  'Ajuste de armação',
+  'Consultoria de estilo',
+  'Garantia estendida',
+  'Convênios',
+];
+---
+
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape-topo">
+      <div class="rodape-marca">
+        <a class="rodape-logo" href="#topo" aria-label="Óticas Londrix, voltar ao topo">
+          <Logotipo />
+        </a>
+        <p class="rodape-frase">
+          Desde 1987 no centro de Londrina. Armações selecionadas, lentes de laboratório próprio e
+          ajuste feito no seu rosto.
+        </p>
+      </div>
+
+      <nav class="rodape-coluna" aria-label="Loja">
+        <h2 class="rodape-titulo">Loja</h2>
+        <ul class="rodape-lista">
+          {
+            loja.map((item) => (
+              <li>
+                <a class="rodape-link" href={item.destino}>
+                  {item.rotulo}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="rodape-coluna">
+        <h2 class="rodape-titulo">Serviços</h2>
+        <ul class="rodape-lista">
+          {
+            servicos.map((servico) => (
+              <li>
+                <button class="rodape-link" type="button" data-abrir-contato>
+                  {servico}
+                </button>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="rodape-coluna">
+        <h2 class="rodape-titulo">Contato</h2>
+        <ul class="rodape-lista">
+          <li><a class="rodape-link" href="tel:+554315550100">(43) 1555-0100</a></li>
+          <li>
+            <a class="rodape-link" href="mailto:contato@oticalondrix.example">
+              contato@oticalondrix.example
+            </a>
+          </li>
+          <li>
+            <a class="rodape-link" href="#visite">Rua das Armações, 480<br />Centro — Londrina/PR</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rodape-base">
+      <p>© 2026 Óticas Londrix. Todos os direitos reservados.</p>
+      <p>Site de demonstração: nomes, endereço e contatos são fictícios.</p>
+      <a class="rodape-link rodape-topo-link" href="#topo">Voltar ao topo ↑</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    padding-block: 4rem 2rem;
+    background: var(--cor-marinho);
+    color: var(--cor-creme);
+  }
+
+  .rodape-topo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 2rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--cor-creme) 18%, transparent);
+  }
+
+  .rodape-marca {
+    grid-column: 1 / -1;
+  }
+
+  .rodape-logo {
+    display: inline-flex;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+  }
+
+  .rodape-frase {
+    max-width: 24rem;
+    color: color-mix(in srgb, var(--cor-creme) 75%, transparent);
+    font-family: var(--fonte-titulo);
+    font-size: 1.375rem;
+    line-height: 1.3;
+  }
+
+  .rodape-titulo {
+    margin-bottom: 1.25rem;
+    color: color-mix(in srgb, var(--cor-creme) 60%, transparent);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .rodape-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rodape-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: color-mix(in srgb, var(--cor-creme) 85%, transparent);
+    font: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.35em;
+    cursor: pointer;
+    transition:
+      color 0.25s ease,
+      text-decoration-color 0.25s ease;
+  }
+
+  .rodape-link:hover {
+    color: var(--cor-creme);
+    text-decoration-color: var(--cor-dourado);
+  }
+
+  .rodape-base {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 2rem;
+    color: color-mix(in srgb, var(--cor-creme) 60%, transparent);
+    font-size: 0.8125rem;
+  }
+
+  .rodape-topo-link {
+    align-self: flex-start;
+    font-size: 0.8125rem;
+  }
+
+  @media (min-width: 768px) {
+    .rodape {
+      padding-block: 6rem 2.5rem;
+    }
+
+    .rodape-base {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .rodape-topo {
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      gap: 3rem;
+    }
+
+    .rodape-marca {
+      grid-column: auto;
+    }
+  }
+</style>

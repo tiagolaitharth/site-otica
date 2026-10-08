@@ -1,0 +1,177 @@
+---
+import Logotipo from './Logotipo.astro';
+
+const links = [
+  { rotulo: 'Coleção', destino: '#colecao' },
+  { rotulo: 'Marcas', destino: '#marcas' },
+  { rotulo: 'Visite a loja', destino: '#visite' },
+];
+---
+
+<header class="cabecalho">
+  <div class="container cabecalho-conteudo">
+    <a class="logo" href="/" aria-label="Óticas Londrix, página inicial">
+      <Logotipo />
+    </a>
+
+    <button
+      class="botao botao-contorno botao-pequeno botao-menu"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-principal"
+    >
+      Menu
+    </button>
+
+    <nav class="menu" id="menu-principal" aria-label="Principal">
+      <ul class="menu-lista">
+        {
+          links.map((link) => (
+            <li>
+              <a class="menu-link" href={link.destino}>
+                {link.rotulo}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <button class="botao botao-contato" type="button" data-abrir-contato>
+        Entrar em contato
+      </button>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const cabecalho = document.querySelector('.cabecalho');
+  const botao = cabecalho?.querySelector('.botao-menu');
+
+  if (cabecalho && botao) {
+    const definirMenu = (aberto: boolean) => {
+      cabecalho.toggleAttribute('data-aberto', aberto);
+      botao.setAttribute('aria-expanded', String(aberto));
+      botao.textContent = aberto ? 'Fechar' : 'Menu';
+    };
+
+    botao.addEventListener('click', () => {
+      definirMenu(!cabecalho.hasAttribute('data-aberto'));
+    });
+
+    cabecalho.querySelectorAll('.menu a, .menu button').forEach((link) => {
+      link.addEventListener('click', () => definirMenu(false));
+    });
+
+    document.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Escape') definirMenu(false);
+    });
+  }
+</script>
+
+<style>
+  .cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--cor-creme);
+    border-bottom: 1px solid var(--cor-linha);
+  }
+
+  .cabecalho-conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 4rem;
+  }
+
+  .logo {
+    display: inline-flex;
+    padding-block: 0.5rem;
+    text-decoration: none;
+  }
+
+  .menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 0.5rem var(--margem-lateral) 1.5rem;
+    background: var(--cor-creme);
+    border-bottom: 1px solid var(--cor-linha);
+  }
+
+  .cabecalho[data-aberto] .menu {
+    display: block;
+  }
+
+  .menu-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .menu-lista li + li {
+    border-top: 1px solid var(--cor-linha);
+  }
+
+  .menu-link {
+    display: flex;
+    align-items: center;
+    min-height: 3.25rem;
+    font-size: 1.125rem;
+    text-decoration: none;
+  }
+
+  .botao-contato {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .cabecalho-conteudo {
+      min-height: 4.75rem;
+    }
+
+    .botao-menu {
+      display: none;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      position: static;
+      padding: 0;
+      border-bottom: 0;
+      background: none;
+    }
+
+    .menu-lista {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .menu-lista li + li {
+      border-top: 0;
+    }
+
+    .menu-link {
+      min-height: 2.75rem;
+      font-size: 0.9375rem;
+    }
+
+    .menu-link:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--cor-dourado);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 0.45em;
+    }
+
+    .botao-contato {
+      width: auto;
+      min-height: 2.75rem;
+      margin-top: 0;
+      padding-inline: 1.25rem;
+    }
+  }
+</style>

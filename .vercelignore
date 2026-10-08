@@ -1,0 +1,8 @@
+.git/
+.astro/
+node_modules/
+dist/
+.vscode/
+AGENTS.md
+CLAUDE.md
+Hero.html
