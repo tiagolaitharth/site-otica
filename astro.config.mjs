@@ -21,4 +21,9 @@ export default defineConfig({
       fallbacks: ['Georgia', 'serif'],
     },
   ],
+  vite: {
+    build: {
+      cssMinify: 'esbuild',
+    },
+  },
 });
